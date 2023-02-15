@@ -1,0 +1,15 @@
+<div class="container">
+  <ul>
+    <li
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Home
+    </li>
+    <li routerLink="/first" routerLinkActive="active">First Task</li>
+    <li routerLink="/second" routerLinkActive="active">Second Task</li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>

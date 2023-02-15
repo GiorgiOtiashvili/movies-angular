@@ -1,0 +1,43 @@
+.container-1 {
+  width: 70%;
+  height: 400px;
+  /* background-color: aquamarine; */
+  font-size: 20px;
+  margin-top: 50px;
+  margin-left: 30px;
+
+  form {
+    padding: 20px;
+    display: inline-block;
+
+    #input {
+      width: 250px;
+      height: 50px;
+      border-radius: 10px;
+      padding: 8px 15px;
+      font-size: 20px;
+    }
+
+    label {
+      font-size: 20px;
+      margin-right: 10px;
+      font-weight: 700;
+      color: red;
+    }
+  }
+
+  #btn-1 {
+    width: 80px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: darkturquoise;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  #flag-wrapper img {
+    width: 100px;
+  }
+}

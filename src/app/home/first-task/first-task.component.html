@@ -1,0 +1,17 @@
+<h1>first-task works!</h1>
+
+<div class="container-1">
+  <form action="">
+    <label for="">Movie Title:</label>
+    <input id="input" type="text" [formControl]="movieTitle" placeholder="Movie title" />
+  </form>
+  <button id="btn-1" (click)="getMovieInfo()">Send</button>
+
+  <div class="content" *ngIf="movie$ | async as movie">
+    <p id="years"> {{ movie.Title }} was released {{ 2023 - movie.Year }} years ago</p> <br>
+    <p id="actor-names">Actors: {{ movie.Actors }}</p> <br>
+    <p id="currency"></p> <br>
+    <div id="flag-wrapper"></div>
+  </div>
+</div>
+
