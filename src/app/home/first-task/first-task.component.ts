@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
+  concatMap,
   debounceTime,
   distinctUntilChanged,
   forkJoin,
@@ -27,7 +28,7 @@ export class FirstTaskComponent {
   movieTitle = new FormControl();
 
   movie$: Observable<any> | undefined;
-  country$: Observable<any> | undefined;
+  countries$: Observable<any> | undefined;
 
   ngOnInit() {
     this.api
@@ -46,27 +47,40 @@ export class FirstTaskComponent {
   }
 
   getMovieInfo() {
-    // console.log(this.movieTitle.value);
+    this.api
+      .getMovie(this.movieTitle.value)
+      .pipe(
+        switchMap((movie) => {
+          // const title = movie.Title;
+          const movieObj = {
+            title: movie.Title,
+            actors: movie.Actors.split(", ").map((fullName) => fullName.split(" ")[0]).join(", "),
+            country: movie.Country,
+            year: movie.Year,
+            yearsAgo: new Date().getFullYear() - +movie.Year,
+            poster: movie.Poster
+          }
 
-    return (this.movie$ = this.api.getMovie(this.movieTitle.value).pipe(
-      // map((movie) => {
-      //   return {
-      //     ...movie,
-      //     Country: movie.Country.split(', '),
-      //     Year: Number(movie.Year),
-      //     Actors: movie.Actors.split(', ')
-      //       .map((fullName) => fullName.split(' ')[0])
-      //       .join(', '),
-      //   };
-      // }),
-      map((movie) =>
-        from(movie.Country.split(', ')).pipe(
-          switchMap((nam) =>
-            this.api.getCountry(nam).pipe(tap((x) => console.log(x)))
-          )
-        )
+          const countries = movie.Country.split(', ').map((country) =>
+            this.fetchFlagsAndCurrencies(country)
+          );
+          // return forkJoin([ of(movieObj), ...countries]);
+          this.movie$ = of(movieObj);
+          this.countries$ = forkJoin([...countries]);
+          return  forkJoin([...countries]);
+        })
       )
-    ));
+      .subscribe(console.log);
+  }
+
+  private fetchFlagsAndCurrencies(country: string) {
+    return this.api
+      .getCountry(country)
+      .pipe(map(({ flags, currencies }) => ({ flags, currencies })));
+  }
+
+  getCurrenciesPropertyName(data: any): string {
+    return Object.keys(data.currencies)[0];
   }
 }
 
@@ -78,3 +92,25 @@ export class FirstTaskComponent {
 //       Actors: movie.Actors.split(", ").map((fullName) => fullName.split(" ")[0]).join(", "),
 //     };
 //   })), this.api.getMovie(this.movieTitle.value).pipe(switchMap((movie) => this.api.getCountry(movie.Country)))])
+
+// console.log(this.movieTitle.value);
+
+//  return (this.movie$ = this.api.getMovie(this.movieTitle.value).pipe(
+//   // map((movie) => {
+//   //   return {
+//   //     ...movie,
+//   //     Country: movie.Country.split(', '),
+//   //     Year: Number(movie.Year),
+//   //     Actors: movie.Actors.split(', ')
+//   //       .map((fullName) => fullName.split(' ')[0])
+//   //       .join(', '),
+//   //   };
+//   // }),
+//   map((movie) =>
+//     from(movie.Country.split(', ')).pipe(
+//       switchMap((nam) =>
+//         this.api.getCountry(nam).pipe(tap((x) => console.log(x)))
+//       )
+//     )
+//   )
+// ));

@@ -3,15 +3,47 @@
 <div class="container-1">
   <form action="">
     <label for="">Movie Title:</label>
-    <input id="input" type="text" [formControl]="movieTitle" placeholder="Movie title" />
+    <input
+      id="input"
+      type="text"
+      [formControl]="movieTitle"
+      placeholder="Movie title"
+    />
   </form>
   <button id="btn-1" (click)="getMovieInfo()">Send</button>
-
+  <!--
   <div class="content" *ngIf="movie$ | async as movie">
     <p id="years"> {{ movie.Title }} was released {{ 2023 - movie.Year }} years ago</p> <br>
     <p id="actor-names">Actors: {{ movie.Actors }}</p> <br>
     <p id="currency"></p> <br>
     <div id="flag-wrapper"></div>
-  </div>
-</div>
+  </div> -->
 
+  <div class="movie-container" *ngIf="movie$ | async as movie">
+    <div class="content" >
+      <div class="poster">
+        <img [src]="movie.poster" alt="" />
+      </div>
+
+      <div class="text">
+        <h2> {{movie.title}} </h2>
+        <p id="years">
+          {{ movie.title }} was released {{ movie.yearsAgo }} years ago
+        </p>
+        <br />
+        <p id="actor-names">Actors: {{ movie.actors }}</p>
+        <br />
+        <!-- Countries -->
+        <div class="countries-wrapper" *ngFor="let country of countries$ | async">
+          <p id="currency">{{  getCurrenciesPropertyName(country) }}</p>
+          <br />
+          <div id="flag-wrapper">
+            <img [src]="country.flags.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <button routerLink="/addMovie">Add to List</button>
+  </div>
+
+</div>

@@ -4,6 +4,7 @@ export interface Movie {
   Actors: string;
   Runtime: string;
   Country: string;
+  Poster: string;
 }
 
 export interface Country {

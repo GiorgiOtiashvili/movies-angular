@@ -8,13 +8,17 @@ import { HomeComponent } from './home/home.component';
 import { FirstTaskComponent } from './home/first-task/first-task.component';
 import { SecondTaskComponent } from './home/second-task/second-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FavoriteMoviesComponent } from './home/favorite-movies/favorite-movies.component';
+import { AddMovieComponent } from './home/add-movie/add-movie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FirstTaskComponent,
-    SecondTaskComponent
+    SecondTaskComponent,
+    FavoriteMoviesComponent,
+    AddMovieComponent,
   ],
   imports: [
     BrowserModule,
