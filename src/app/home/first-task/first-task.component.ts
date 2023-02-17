@@ -1,20 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
-  concatMap,
   debounceTime,
   distinctUntilChanged,
   forkJoin,
-  from,
   map,
-  mergeMap,
   Observable,
   of,
-  Subscription,
   switchMap,
-  tap,
 } from 'rxjs';
-import { Movie } from 'src/app/interfaces/movies.model';
+import { Movie, WholeData } from 'src/app/interfaces/movies.model';
+import { MovieDataService } from 'src/app/services/movie-data.service';
 import { MoviesApiService } from 'src/app/services/movies-api.service';
 
 @Component({
@@ -23,94 +19,115 @@ import { MoviesApiService } from 'src/app/services/movies-api.service';
   styleUrls: ['./first-task.component.scss'],
 })
 export class FirstTaskComponent {
-  constructor(private api: MoviesApiService) {}
+  constructor(
+    private moviesApiService: MoviesApiService,
+    private movieDataService: MovieDataService
+  ) {}
 
   movieTitle = new FormControl();
 
-  movie$: Observable<any> | undefined;
-  countries$: Observable<any> | undefined;
+  // movie$: Observable<any> | undefined;
+  // countries$: Observable<any> | undefined;
+
+  wholeData$: Observable<any> | undefined;
 
   ngOnInit() {
-    this.api
-      .getCountry('georgia')
-      .pipe(
-        map((country) => {
-          return {
-            // currencies: Object.keys(country.currencies),
-            currencies: country.currencies,
-            population: country.population,
-            flags: country.flags.png,
-          };
-        })
-      )
-      .subscribe((x) => console.log(x));
+    // this.moviesApiService
+    //   .getCountry('georgia')
+    //   .pipe(
+    //     map((country) => {
+    //       return {
+    //         // currencies: Object.keys(country.currencies),
+    //         currencies: country.currencies,
+    //         population: country.population,
+    //         flags: country.flags.png,
+    //       };
+    //     })
+    //   )
+    //   .subscribe((x) => console.log(x));
   }
 
   getMovieInfo() {
-    this.api
+    this.wholeData$ = this.moviesApiService
       .getMovie(this.movieTitle.value)
       .pipe(
         switchMap((movie) => {
-          // const title = movie.Title;
           const movieObj = {
             title: movie.Title,
-            actors: movie.Actors.split(", ").map((fullName) => fullName.split(" ")[0]).join(", "),
+            actors: movie.Actors.split(', ')
+              .map((fullName) => fullName.split(' ')[0])
+              .join(', '),
             country: movie.Country,
-            year: movie.Year,
+            // year: movie.Year,
             yearsAgo: new Date().getFullYear() - +movie.Year,
-            poster: movie.Poster
-          }
+            poster: movie.Poster,
+            genre: movie.Genre,
+            awards: movie.Awards,
+            runtime: movie.Runtime,
+            id: movie.imdbID,
+            released: movie.Released,
+          };
 
           const countries = movie.Country.split(', ').map((country) =>
-            this.fetchFlagsAndCurrencies(country)
+            this.fetchCountryInfo(country)
           );
           // return forkJoin([ of(movieObj), ...countries]);
-          this.movie$ = of(movieObj);
-          this.countries$ = forkJoin([...countries]);
-          return  forkJoin([...countries]);
+          return forkJoin([...countries]).pipe(
+            map((countriesInfo) => ({ countriesInfo, movieInfo: movieObj }))
+          );
         })
-      )
-      .subscribe(console.log);
+      );
+    // .subscribe(console.log);
   }
 
-  private fetchFlagsAndCurrencies(country: string) {
-    return this.api
-      .getCountry(country)
-      .pipe(map(({ flags, currencies }) => ({ flags, currencies })));
+  // private fetchFlagsAndCurrencies(country: string)
+  private fetchCountryInfo(country: string) {
+    return this.moviesApiService.getCountry(country).pipe(
+      map(({ flags, currencies, population }) => ({
+        flags,
+        currencies,
+        population,
+      }))
+    );
   }
 
   getCurrenciesPropertyName(data: any): string {
     return Object.keys(data.currencies)[0];
   }
+
+  addToList(data: WholeData) {
+    this.movieDataService.movieData = data;
+    // this.movieDataService.movieData$ = of(data);
+    // this.moviesApiService.saveMovie(data).subscribe((x) => console.log(x));
+    // console.log(movie);
+  }
 }
 
-// return this.movie$ = forkJoin([this.api.getMovie(this.movieTitle.value).pipe(
-//   map((movie) => {
-//     return {
-//       ...movie,
-//       Year: Number(movie.Year),
-//       Actors: movie.Actors.split(", ").map((fullName) => fullName.split(" ")[0]).join(", "),
-//     };
-//   })), this.api.getMovie(this.movieTitle.value).pipe(switchMap((movie) => this.api.getCountry(movie.Country)))])
+//16 Feb - ძველი
+// getMovieInfo() {
+//   this.api
+//     .getMovie(this.movieTitle.value)
+//     .pipe(
+//       switchMap((movie) => {
+//         // const title = movie.Title;
+//         const movieObj = {
+//           title: movie.Title,
+//           actors: movie.Actors.split(", ").map((fullName) => fullName.split(" ")[0]).join(", "),
+//           country: movie.Country,
+//           year: movie.Year,
+//           yearsAgo: new Date().getFullYear() - +movie.Year,
+//           poster: movie.Poster
+//         }
 
-// console.log(this.movieTitle.value);
-
-//  return (this.movie$ = this.api.getMovie(this.movieTitle.value).pipe(
-//   // map((movie) => {
-//   //   return {
-//   //     ...movie,
-//   //     Country: movie.Country.split(', '),
-//   //     Year: Number(movie.Year),
-//   //     Actors: movie.Actors.split(', ')
-//   //       .map((fullName) => fullName.split(' ')[0])
-//   //       .join(', '),
-//   //   };
-//   // }),
-//   map((movie) =>
-//     from(movie.Country.split(', ')).pipe(
-//       switchMap((nam) =>
-//         this.api.getCountry(nam).pipe(tap((x) => console.log(x)))
-//       )
+//         const countries = movie.Country.split(', ').map((country) =>
+//           this.fetchFlagsAndCurrencies(country)
+//         );
+//         // return forkJoin([ of(movieObj), ...countries]);
+//         this.movie$ = of(movieObj);
+//         this.countries$ = forkJoin([...countries]);
+//         return  forkJoin([...countries]);
+//       })
 //     )
-//   )
-// ));
+//     .subscribe(console.log);
+// }
+

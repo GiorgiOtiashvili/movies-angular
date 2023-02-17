@@ -10,6 +10,7 @@ import { SecondTaskComponent } from './home/second-task/second-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavoriteMoviesComponent } from './home/favorite-movies/favorite-movies.component';
 import { AddMovieComponent } from './home/add-movie/add-movie.component';
+import { MovieDetailsComponent } from './home/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AddMovieComponent } from './home/add-movie/add-movie.component';
     SecondTaskComponent,
     FavoriteMoviesComponent,
     AddMovieComponent,
+    MovieDetailsComponent,
   ],
   imports: [
     BrowserModule,

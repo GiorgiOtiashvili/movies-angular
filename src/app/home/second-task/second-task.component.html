@@ -2,13 +2,13 @@
 
 <div class="container-2">
   <p>Enter movie titles:</p>
-  <input id="input-1" type="text" placeholder="movie 1" />
+  <input id="input-1" type="text" placeholder="movie 1" [formControl]="movieTitle1" />
 
-  <input id="input-2" type="text" placeholder="movie 2" />
+  <input id="input-2" type="text" placeholder="movie 2" [formControl]="movieTitle2" />
 
-  <input id="input-3" type="text" placeholder="movie 3" />
+  <input id="input-3" type="text" placeholder="movie 3" [formControl]="movieTitle3" />
 
-  <button id="btn-2">Click</button>
+  <button id="btn-2" (click)="getMoviesInfo()">Click</button>
 
   <br> <br>
   <p id="duration"></p> <br>

@@ -19,22 +19,22 @@
     <div id="flag-wrapper"></div>
   </div> -->
 
-  <div class="movie-container" *ngIf="movie$ | async as movie">
+  <div class="movie-container" *ngIf="wholeData$ | async as data">
     <div class="content" >
       <div class="poster">
-        <img [src]="movie.poster" alt="" />
+        <img [src]="data.movieInfo.poster" alt="" />
       </div>
 
       <div class="text">
-        <h2> {{movie.title}} </h2>
+        <h2> {{data.movieInfo.title}} </h2>
         <p id="years">
-          {{ movie.title }} was released {{ movie.yearsAgo }} years ago
+          {{ data.movieInfo.title }} was released {{ data.movieInfo.yearsAgo }} years ago
         </p>
         <br />
-        <p id="actor-names">Actors: {{ movie.actors }}</p>
+        <p id="actor-names">Actors: {{ data.movieInfo.actors }}</p>
         <br />
         <!-- Countries -->
-        <div class="countries-wrapper" *ngFor="let country of countries$ | async">
+        <div class="countries-wrapper" *ngFor="let country of data.countriesInfo">
           <p id="currency">{{  getCurrenciesPropertyName(country) }}</p>
           <br />
           <div id="flag-wrapper">
@@ -43,7 +43,35 @@
         </div>
       </div>
     </div>
-    <button routerLink="/addMovie">Add to List</button>
+    <button routerLink="/addMovie" (click)="addToList(data)">Add to List</button>
   </div>
 
 </div>
+
+<!-- ძველი ვერსია 16 Feb -->
+<!-- <div class="movie-container" *ngIf="movie$ | async as movie">
+  <div class="content" >
+    <div class="poster">
+      <img [src]="movie.poster" alt="" />
+    </div>
+
+    <div class="text">
+      <h2> {{movie.title}} </h2>
+      <p id="years">
+        {{ movie.title }} was released {{ movie.yearsAgo }} years ago
+      </p>
+      <br />
+      <p id="actor-names">Actors: {{ movie.actors }}</p>
+      <br />
+
+      <div class="countries-wrapper" *ngFor="let country of countries$ | async">
+        <p id="currency">{{  getCurrenciesPropertyName(country) }}</p>
+        <br />
+        <div id="flag-wrapper">
+          <img [src]="country.flags.png" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <button routerLink="/addMovie">Add to List</button>
+</div> -->

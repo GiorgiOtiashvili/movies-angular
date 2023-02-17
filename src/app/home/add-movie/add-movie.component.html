@@ -1,1 +1,15 @@
-<p>add-movie works!</p>
+<h1>add-movie works!</h1>
+
+<form action="">
+  <label for="">Add a Comment</label> <br> <br>
+  <textarea [formControl]="commentText" name="" id="" cols="30" rows="10" placeholder="Add a comment"></textarea>
+</form>
+
+<button (click)="addToFavorites()">Add to Favorites</button>
+
+
+<!-- <div *ngIf="movieData">
+  {{movieData.movieInfo | json}}
+  <br> <br>
+  {{movieData.countriesInfo | json}}
+</div> -->
