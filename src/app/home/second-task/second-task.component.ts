@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { forkJoin, map, mergeMap, Observable, of, switchMap, tap } from 'rxjs';
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { FinalInfo } from 'src/app/interfaces/movies.model';
 import { MoviesApiService } from 'src/app/services/movies-api.service';
 
 @Component({
@@ -15,53 +16,48 @@ export class SecondTaskComponent {
   movieTitle2 = new FormControl();
   movieTitle3 = new FormControl();
 
-  data$: Observable<any> | undefined;
-
-  combinedLength: number = 0;
-  combinedPopulation: number = 0;
+  moviesData$: Observable<FinalInfo> | undefined;
 
   getMoviesInfo() {
     const movie1 = this.moviesApiService.getMovie(this.movieTitle1.value);
     const movie2 = this.moviesApiService.getMovie(this.movieTitle2.value);
     const movie3 = this.moviesApiService.getMovie(this.movieTitle3.value);
 
-    forkJoin([movie1, movie2, movie3])
-      .pipe(
-        map((res) =>
-          res.map((movie) => {
+    this.moviesData$ = forkJoin([movie1, movie2, movie3]).pipe(
+      // tap(console.log),
+      map((result) =>
+        result.map((movie) => {
+          return {
+            duration: Number(movie.Runtime.split(' ')[0]),
+            countryNamesArr: movie.Country.split(', '),
+          };
+        })
+      ),
+      switchMap((arr) => {
+        // console.log(arr);
+        const countryNames = [
+          ...new Set(arr.map((item) => item.countryNamesArr).flat()),
+        ];
+        console.log(countryNames);
+
+        return forkJoin(
+          countryNames.map((country) =>
+            this.moviesApiService.getCountry(country)
+          )
+        ).pipe(
+          map((res) => {
             return {
-              duration: Number(movie.Runtime.split(' ')[0]),
-              countryNamesArr: movie.Country.split(', '),
+              totalPopulation: res.reduce(
+                (acc, curr) => acc + curr.population,
+                0
+              ),
+              totalRuntime: Number(
+                arr.reduce((acc: any, curr: any) => acc + curr.duration, 0)
+              ),
             };
           })
-        ),
-        switchMap((arr) => {
-          arr.forEach((obj) => (this.combinedLength += obj.duration));
-          // this.combinedLength = x.duration.reduce((acc, curr) => acc + curr);
-          return of('bla');
-        })
-
-        // map((responses) => {
-        //   const lengths = responses.map((r) => Number(r.Runtime));
-        //   this.combinedLength = lengths.reduce((a, b) => a + b);
-        //   const countries = responses.map((r) => r.Country);
-        //   const uniqueCountries = [...new Set(countries)];
-        //   return uniqueCountries;
-        // }),
-        // map((countries) =>
-        //   forkJoin(
-        //     countries.map((c) =>
-        //       this.moviesApiService.getCountry(c)
-        //     )
-        //   )
-        // ),
-        // map((responses) => {
-        //   const populations = responses
-        //     .map((r) => r[0].population)
-        //     .filter((p) => p !== undefined);
-        //   this.combinedPopulation = populations.reduce((a, b) => a + b);
-        // })
-      )
-      .subscribe();
+        );
+      })
+    );
   }
 }

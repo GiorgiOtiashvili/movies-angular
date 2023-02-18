@@ -43,14 +43,3 @@ export class MoviesApiService {
   //   return this.http.delete(`${JSON_SERVER_BASE}/movies/${id}`);
   // }
 }
-
-// export function getMovie(name: string): Promise<Movie> {
-// 	return fetch(`https://www.omdbapi.com/?t=${name}&apikey=fe67fddd`)
-//     .then((x) => x.json());
-// }
-
-// export function getCountry(country: string): Promise<Country> {
-// 	return fetch(`https://restcountries.com/v3.1/name/${country}?fullText=true`)
-//     .then((x) => x.json())
-//     .then((x) => x[0]);
-// }

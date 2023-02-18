@@ -15,17 +15,17 @@ export class FavoriteMoviesComponent {
     private movieDataService: MovieDataService
   ) {}
 
-  favoriteMovies$: Observable<FavoriteMovie[]> | undefined | null | any =
-    this.moviesApiService.getFavoriteMovies();
+  // | undefined | null | any[]
+  favoriteMovies$: Observable<FavoriteMovie[]> = this.moviesApiService.getFavoriteMovies();
 
   ngOnInit() {
     // this.favoriteMovies$ =  this.moviesApiService.getFavoriteMovies();
     // console.log(this.favoriteMovies$);
-    this.favoriteMovies$?.subscribe(console.log);
+    // this.favoriteMovies$?.subscribe(console.log);
   }
 
   sendMovie(movie: FavoriteMovie) {
     this.movieDataService.selectedMovie = movie;
-    console.log(movie);
+    // console.log(movie);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { FavoriteMovie } from 'src/app/interfaces/movies.model';
 import { MovieDataService } from 'src/app/services/movie-data.service';
@@ -16,7 +16,8 @@ export class MovieDetailsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private movieApiService: MoviesApiService,
-    private movieDataService: MovieDataService
+    private movieDataService: MovieDataService,
+    private router: Router
   ) {}
 
   selectedMovie$: Observable<FavoriteMovie | undefined> | undefined;
@@ -34,12 +35,11 @@ export class MovieDetailsComponent implements OnInit {
         .pipe(
           map((movies) => movies.find((movie) => movie.id === favoriteMovieId))
         );
-      // usersDetails.find((user) => user.id === userId);
     }
     // this.selectedMovie$?.subscribe(console.log);
 
     this.selectedMovie = this.movieDataService.selectedMovie;
-    console.log(this.selectedMovie);
+    // console.log(this.selectedMovie);
   }
 
   getCurrenciesPropertyName(data: any): string {
@@ -47,10 +47,9 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteMovie(id: number) {
-    this.movieApiService.deleteMovie(id).subscribe((x) => {
-      console.log(x);
+    this.movieApiService.deleteMovie(id).subscribe(() => {
+      this.router.navigateByUrl('/favorites');
     });
-
     // this.selectedMovie = this.movieDataService.selectedMovie;
   }
 

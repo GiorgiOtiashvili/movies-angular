@@ -30,8 +30,6 @@ const routes: Routes = [
   },
   {
     path: 'favorites/:movieId',
-    // path: ':movieId',
-    // path: 'details',
     component: MovieDetailsComponent,
   },
 ];
@@ -41,3 +39,6 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+
+// path: ':movieId',
+// path: 'details',

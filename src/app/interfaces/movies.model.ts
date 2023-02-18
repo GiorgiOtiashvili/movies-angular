@@ -35,27 +35,6 @@ export interface MovieInfo {
 }
 
 // ახალი interface-ები
-// const bla: Observable<{
-//   countriesInfo: {
-//       flags: Flags;
-//       currencies: Currency;
-//       population: number;
-//   }[];
-//   movieInfo: {
-//       title: string;
-//       actors: string;
-//       country: string;
-//       yearsAgo: number;
-//       poster: string;
-//       genre: string;
-//       awards: string;
-//       runtime: string;
-//       id: string;
-//       released: string;
-//   };
-// }>
-
-// ახალი interface-ები
 export interface ChangedMovie {
   title: string;
   actors: string;
@@ -77,8 +56,11 @@ export interface WholeData {
 export interface FavoriteMovie extends WholeData {
   comment: string;
   rating?: number;
-  id?: number;
+  id: number;
+}
 
-  // countriesInfo: Country[];
-  // movieInfo: ChangedMovie;
+// Task 2
+export interface FinalInfo {
+  totalPopulation: number;
+  totalRuntime: number;
 }

@@ -1,16 +1,43 @@
-<h1>second-task works!</h1>
-
 <div class="container-2">
-  <p>Enter movie titles:</p>
-  <input id="input-1" type="text" placeholder="movie 1" [formControl]="movieTitle1" />
+  <div class="content">
+    <p>Enter movie titles:</p>
+    <div class="inputs-box">
+      <input
+        id="input-1"
+        type="text"
+        placeholder="Enter movie title"
+        [formControl]="movieTitle1"
+      />
 
-  <input id="input-2" type="text" placeholder="movie 2" [formControl]="movieTitle2" />
+      <input
+        id="input-2"
+        type="text"
+        placeholder="Enter movie title"
+        [formControl]="movieTitle2"
+      />
 
-  <input id="input-3" type="text" placeholder="movie 3" [formControl]="movieTitle3" />
+      <input
+        id="input-3"
+        type="text"
+        placeholder="Enter movie title"
+        [formControl]="movieTitle3"
+      />
 
-  <button id="btn-2" (click)="getMoviesInfo()">Click</button>
+      <button id="btn-2" (click)="getMoviesInfo()">Click</button>
+    </div>
 
-  <br> <br>
-  <p id="duration"></p> <br>
-  <p id="population"></p> <br>
+    <br />
+    <br />
+
+    <div class="duration-population" *ngIf="moviesData$ | async as moviesData">
+      <div class="duration">
+        The length of all the movies combined in minutes:
+        <span> {{ moviesData.totalRuntime }}</span>
+      </div>
+      <div class="population">
+        Sum of population of all the countries in which the movies where made:
+        <span>{{ moviesData.totalPopulation }}</span>
+      </div>
+    </div>
+  </div>
 </div>

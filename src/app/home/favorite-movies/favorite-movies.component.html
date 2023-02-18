@@ -7,7 +7,8 @@
   <!-- <div>Awards: {{ movie.movieInfo.awards }}</div> -->
   <!-- <div>Released: {{ movie.movieInfo.released }}</div> -->
   <!-- <div>My Comment: {{ movie.comment }}</div> -->
-  <button (click)="sendMovie(movie)" [routerLink]="movie.id">view details</button>
+  <!-- [routerLink="movie.id"] -->
+  <button (click)="sendMovie(movie)" routerLink={{movie.id}}>View details</button>
 </div>
 
 <!-- <ul>

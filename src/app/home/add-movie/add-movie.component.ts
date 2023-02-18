@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, Subject, tap } from 'rxjs';
 import { FavoriteMovie, WholeData } from 'src/app/interfaces/movies.model';
 import { MovieDataService } from 'src/app/services/movie-data.service';
@@ -13,7 +14,8 @@ import { MoviesApiService } from 'src/app/services/movies-api.service';
 export class AddMovieComponent implements OnInit {
   constructor(
     private movieDataService: MovieDataService,
-    private movieApiService: MoviesApiService
+    private movieApiService: MoviesApiService,
+    private router: Router
   ) {}
 
   movieData: WholeData | undefined;
@@ -36,8 +38,11 @@ export class AddMovieComponent implements OnInit {
       ...this.movieData,
       comment: this.commentText.value,
     }
-    this.movieApiService.saveMovie(favoriteMovie).subscribe(x => console.log(x));
+
+    this.movieApiService.saveMovie(favoriteMovie).subscribe({
+      // next: (x) => console.log(x),
+      complete: () => this.router.navigateByUrl('/favorites'),
+    });
     // this.commentText.value = '';
-    console.log("added a movie");
   }
 }

@@ -31,21 +31,7 @@ export class FirstTaskComponent {
 
   wholeData$: Observable<any> | undefined;
 
-  ngOnInit() {
-    // this.moviesApiService
-    //   .getCountry('georgia')
-    //   .pipe(
-    //     map((country) => {
-    //       return {
-    //         // currencies: Object.keys(country.currencies),
-    //         currencies: country.currencies,
-    //         population: country.population,
-    //         flags: country.flags.png,
-    //       };
-    //     })
-    //   )
-    //   .subscribe((x) => console.log(x));
-  }
+  ngOnInit() {}
 
   getMovieInfo() {
     this.wholeData$ = this.moviesApiService
@@ -102,32 +88,3 @@ export class FirstTaskComponent {
     // console.log(movie);
   }
 }
-
-//16 Feb - ძველი
-// getMovieInfo() {
-//   this.api
-//     .getMovie(this.movieTitle.value)
-//     .pipe(
-//       switchMap((movie) => {
-//         // const title = movie.Title;
-//         const movieObj = {
-//           title: movie.Title,
-//           actors: movie.Actors.split(", ").map((fullName) => fullName.split(" ")[0]).join(", "),
-//           country: movie.Country,
-//           year: movie.Year,
-//           yearsAgo: new Date().getFullYear() - +movie.Year,
-//           poster: movie.Poster
-//         }
-
-//         const countries = movie.Country.split(', ').map((country) =>
-//           this.fetchFlagsAndCurrencies(country)
-//         );
-//         // return forkJoin([ of(movieObj), ...countries]);
-//         this.movie$ = of(movieObj);
-//         this.countries$ = forkJoin([...countries]);
-//         return  forkJoin([...countries]);
-//       })
-//     )
-//     .subscribe(console.log);
-// }
-
