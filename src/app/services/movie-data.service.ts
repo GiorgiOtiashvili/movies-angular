@@ -3,14 +3,14 @@ import { Observable, Subject } from 'rxjs';
 import { FavoriteMovie, WholeData } from '../interfaces/movies.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieDataService {
-
-  constructor() { }
+  constructor() {}
 
   // movieData$: Observable<WholeData> | undefined;
   movieData: WholeData | undefined;
 
   selectedMovie: FavoriteMovie | undefined;
+  selectedMovie$: Observable<FavoriteMovie> | undefined;
 }

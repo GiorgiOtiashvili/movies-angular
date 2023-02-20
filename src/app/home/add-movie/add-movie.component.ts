@@ -22,27 +22,38 @@ export class AddMovieComponent implements OnInit {
   // = this.movieDataService.movieData$
   // movieData$: Observable<WholeData> | undefined;
 
-
   commentText = new FormControl();
 
   ngOnInit(): void {
     this.movieData = this.movieDataService.movieData;
-    // this.movieData$?.subscribe((x) => console.log(x));
     console.log(this.movieData);
     this.commentText.valueChanges.subscribe(console.log);
   }
 
+  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  rating: number = 0;
+
+  // myCommentAndRating = {
+  //   comment: this.commentText.value,
+  //   myRating: this.rating,
+  // };
+
   addToFavorites() {
-    if(this.movieData) {}
+    // if(this.movieData) {}
     const favoriteMovie = {
       ...this.movieData,
+      // ...this.myCommentAndRating,
       comment: this.commentText.value,
-    }
+      myRating: this.rating,
+    };
+
+    console.log(favoriteMovie);
 
     this.movieApiService.saveMovie(favoriteMovie).subscribe({
       // next: (x) => console.log(x),
       complete: () => this.router.navigateByUrl('/favorites'),
     });
+
     // this.commentText.value = '';
   }
 }

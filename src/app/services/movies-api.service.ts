@@ -42,4 +42,12 @@ export class MoviesApiService {
   // deleteMovieComment(id: number) {
   //   return this.http.delete(`${JSON_SERVER_BASE}/movies/${id}`);
   // }
+
+  editComment(id: number, movie: FavoriteMovie) {
+    return this.http.patch(`${JSON_SERVER_BASE}/movies/${id}`, movie);
+  }
+
+  // editMovie(id: number, movie: FavoriteMovie) {
+  //   return this.http.patch(`${JSON_SERVER_BASE}/movies/${id}`, movie)
+  // }
 }

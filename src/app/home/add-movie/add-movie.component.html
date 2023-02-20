@@ -1,12 +1,42 @@
-<h1>add-movie works!</h1>
+<div class="container">
+  <div class="content">
+    <form action="">
+      <label for="comment">Add a Comment</label> <br />
+      <br />
+      <textarea
+        [formControl]="commentText"
+        name=""
+        id="comment"
+        cols="30"
+        rows="10"
+        placeholder="Add a comment"
+      ></textarea>
 
-<form action="">
-  <label for="">Add a Comment</label> <br> <br>
-  <textarea [formControl]="commentText" name="" id="" cols="30" rows="10" placeholder="Add a comment"></textarea>
-</form>
+      <br />
+      <br />
 
-<button (click)="addToFavorites()">Add to Favorites</button>
+      <select name="rating" id="rating" [(ngModel)]="rating">
+        <option value="Select" disabled selected>Select Score</option>
 
+        <option *ngFor="let number of numbers" [value]="number">
+          {{ number }}
+        </option>
+        <!-- <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option> -->
+      </select>
+    </form>
+
+    <button (click)="addToFavorites()">Add to Favorites</button>
+  </div>
+</div>
 
 <!-- <div *ngIf="movieData">
   {{movieData.movieInfo | json}}

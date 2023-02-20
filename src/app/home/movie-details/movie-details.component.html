@@ -1,107 +1,125 @@
-<h1>movie-details works!</h1>
-<!--
-<div *ngIf="selectedMovie">
-  <div>{{ selectedMovie.movieInfo.title }}</div>
-  <div>{{ selectedMovie.movieInfo.actors }}</div>
-</div> -->
-
 <!-- <div class="container" *ngIf="selectedMovie$ |async as selectedMovie"></div> -->
-
 <div class="container" *ngIf="selectedMovie">
-  <div class="movie-container">
-    <div class="content">
-      <div class="poster">
-        <img [src]="selectedMovie.movieInfo.poster" alt="" />
-      </div>
+  <div class="content">
+    <div class="movie-container">
+      <div class="movie-content">
+        <div class="poster">
+          <img [src]="selectedMovie.movieInfo.poster" alt="" />
+        </div>
 
-      <div class="text">
-        <h2>{{ selectedMovie.movieInfo.title }}</h2>
-        <p id="years">
-          {{ selectedMovie.movieInfo.title }} was released
-          {{ selectedMovie.movieInfo.yearsAgo }} years ago
-        </p>
-        <br />
-        <p id="actor-names">Actors: {{ selectedMovie.movieInfo.actors }}</p>
-        <br />
-        <!-- Countries -->
-        <div
-          class="countries-wrapper"
-          *ngFor="let country of selectedMovie.countriesInfo"
-        >
-          <!-- The currency of {{country}} is  -->
-          <p id="currency">
-            Currency: {{ getCurrenciesPropertyName(country) }}
+        <div class="text">
+          <h2>{{ selectedMovie.movieInfo.title }}</h2>
+          <p id="years">
+            <span>Released:</span>
+            {{ selectedMovie.movieInfo.title }} was released
+            {{ selectedMovie.movieInfo.yearsAgo }} years ago
           </p>
-          <br />
-          <div id="flag-wrapper">
-            Flag:
-            <img [src]="country.flags.png" alt="" />
+          <!-- <br /> -->
+          <p id="actor-names">
+            <span>Actors:</span> {{ selectedMovie.movieInfo.actors }}
+          </p>
+          <!-- <br /> -->
+          <p id="actor-names">
+            <span>Genre:</span> {{ selectedMovie.movieInfo.genre }}
+          </p>
+          <p id="actor-names">
+            <span>Awards:</span> {{ selectedMovie.movieInfo.awards }}
+          </p>
+          <p id="actor-names">
+            <span>Runtime:</span> {{ selectedMovie.movieInfo.runtime }}
+          </p>
+
+          <!-- Countries -->
+          <div
+            class="countries-wrapper"
+            *ngFor="let country of selectedMovie.countriesInfo"
+          >
+            <!-- The currency of {{country}} is  -->
+            <p id="currency">
+              <span>Currency:</span> {{ getCurrenciesPropertyName(country) }}
+            </p>
+            <br />
+            <div id="flag-wrapper">
+              <img [src]="country.flags.png" alt="" />
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="buttons-container1">
-      <button class="edit" >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path
-            d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"
-          />
-        </svg>
-      </button>
-      <button class="delete" *ngIf="selectedMovie.id" (click)="deleteMovie(selectedMovie.id)">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-          <path
-            d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
-          />
-        </svg>
-      </button>
-      <!-- <button class="cancel">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-          <path
-            d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
-          />
-        </svg>
-      </button> -->
-    </div>
-  </div>
+    <!-- my comment -->
+    <div class="comment-rating">
+      <div class="comment">
+        <div class="comment-content">
+          <span>My Comment:</span>
+          <p *ngIf="!isEditing">{{ selectedMovie.comment }}</p>
+          <div>
+            <!-- [(ngModel)]="selectedMovie.comment" -->
+            <input
+              type="text"
+              *ngIf="isEditing"
+              [value]="selectedMovie.comment"
+              #input
+            />
+          </div>
+        </div>
 
-  <!-- my comment -->
-  <div class="comment-rating">
-    <div class="comment">
-      <div class="comment-content" >
-        My Comment:
-        <p *ngIf="!isEditing">{{ selectedMovie.comment }}</p>
-        <div>
-          <input type="text" *ngIf="isEditing" [(ngModel)]="selectedMovie.comment">
+        <div class="buttons-container2">
+          <button class="edit" (click)="enterEdit()" *ngIf="!isEditing">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button
+            class="checkbox"
+            *ngIf="isEditing"
+            (click)="edit(selectedMovie)"
+          >
+            <i class="fa-solid fa-square-check"></i>
+          </button>
+          <!-- *ngIf="selectedMovie.id" (click)="deleteMovieComment(selectedMovie.id)" [disabled]="isEditing" -->
+          <!-- <button
+          class="delete"
+          *ngIf="selectedMovie.id"
+          (click)="deleteMovieComment(selectedMovie.id)"
+          [disabled]="isEditing"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button> -->
+          <button class="cancel-edit" *ngIf="isEditing" (click)="cancelEdit()">
+            <i class="fa-solid fa-rectangle-xmark"></i>
+          </button>
         </div>
       </div>
 
-      <div class="buttons-container2">
-        <button class="edit" (click)="edit()" *ngIf="!isEditing">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"
-            />
-          </svg>
-        </button>
-        <button class="checkbox" *ngIf="isEditing">✅</button>
-        <!-- *ngIf="selectedMovie.id" (click)="deleteMovieComment(selectedMovie.id)" [disabled]="isEditing" -->
-        <button class="delete" *ngIf="selectedMovie.id" (click)="deleteMovieComment(selectedMovie.id)" [disabled]="isEditing">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path
-              d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
-            />
-          </svg>
-        </button>
-        <button class="cancel" *ngIf="isEditing">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-            <path
-              d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
-            />
-          </svg>
-        </button>
+      <div class="my-rating">
+        <p><span>MyRating:</span> {{ selectedMovie.myRating }}</p>
       </div>
     </div>
+
+    <div class="buttons">
+      <button
+        class="delete-btn"
+        *ngIf="selectedMovie.id"
+        (click)="deleteMovie(selectedMovie.id)"
+      >
+        Delete Movie
+      </button>
+      <!-- <button></button> -->
+    </div>
+
+    <!-- <div class="buttons-container1">
+    <button class="edit">
+      <i class="fa-solid fa-pen-to-square"></i>
+    </button>
+    <button
+      class="delete"
+      *ngIf="selectedMovie.id"
+      (click)="deleteMovie(selectedMovie.id)"
+    >
+      <i class="fa-solid fa-trash"></i>
+    </button>
+    <button class="cancel">
+      <i class="fa-solid fa-rectangle-xmark"></i>
+    </button>
+  </div> -->
   </div>
 </div>

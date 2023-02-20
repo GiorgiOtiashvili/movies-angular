@@ -1,7 +1,6 @@
 .container-1 {
   // width: 70%;
   height: 400px;
-  /* background-color: aquamarine; */
   font-size: 20px;
   margin-top: 50px;
   margin-left: 30px;
@@ -27,24 +26,28 @@
   }
 
   #btn-1 {
-    width: 80px;
+    width: 100px;
     height: 50px;
     border: none;
     border-radius: 10px;
     background-color: darkturquoise;
     font-size: 20px;
     font-weight: 700;
+    transition: 0.5s;
     cursor: pointer;
+
+    &:hover {
+    background-color: rgb(85, 246, 249);
+    }
   }
 
   .movie-container {
+    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
 
     width: 80%;
-    margin: auto;
-    // width: 800px;
-    // height: 500px;
+    margin-inline: auto;
     padding: 20px;
     background-color: rgb(34, 33, 33);
     color: white;
@@ -54,8 +57,8 @@
 
     .content {
       display: flex;
-      justify-content: space-evenly;
-      gap: 90px;
+      gap: 200px;
+      // justify-content: space-evenly;
       // justify-content: space-between;
 
       .poster {
@@ -83,8 +86,8 @@
       }
     }
 
-    button {
-      width: 120px;
+    button.add-to-list {
+      width: 160px;
       height: 60px;
       border: none;
       border-radius: 5px;
@@ -92,9 +95,15 @@
       font-weight: 700;
       background-color: rgb(20, 167, 220);
       color: white;
+      cursor: pointer;
 
-      justify-self: flex-end;
       align-self: flex-end;
+      margin-top: 50px;
+
+      &:hover {
+      background-color: rgb(115, 214, 251);
+      }
+
     }
   }
 }

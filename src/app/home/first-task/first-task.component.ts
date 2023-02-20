@@ -25,10 +25,6 @@ export class FirstTaskComponent {
   ) {}
 
   movieTitle = new FormControl();
-
-  // movie$: Observable<any> | undefined;
-  // countries$: Observable<any> | undefined;
-
   wholeData$: Observable<any> | undefined;
 
   ngOnInit() {}
@@ -57,16 +53,13 @@ export class FirstTaskComponent {
           const countries = movie.Country.split(', ').map((country) =>
             this.fetchCountryInfo(country)
           );
-          // return forkJoin([ of(movieObj), ...countries]);
           return forkJoin([...countries]).pipe(
             map((countriesInfo) => ({ countriesInfo, movieInfo: movieObj }))
           );
         })
       );
-    // .subscribe(console.log);
   }
 
-  // private fetchFlagsAndCurrencies(country: string)
   private fetchCountryInfo(country: string) {
     return this.moviesApiService.getCountry(country).pipe(
       map(({ flags, currencies, population }) => ({

@@ -1,18 +1,15 @@
-<h1>favorite-movies works!</h1>
-
 <div class="movie-info" *ngFor="let movie of favoriteMovies$ | async">
-  <div>ID: {{ movie.id }}</div>
+  <!-- <div> -->
+    <img [src]="movie.movieInfo.poster" alt="" style="width: 75px;" />
+  <!-- </div> -->
+  <!-- <div>ID: {{ movie.id }}</div> -->
   <div class="movie-title">{{ movie.movieInfo.title }}</div>
   <div>Genre: {{ movie.movieInfo.genre }}</div>
   <!-- <div>Awards: {{ movie.movieInfo.awards }}</div> -->
   <!-- <div>Released: {{ movie.movieInfo.released }}</div> -->
   <!-- <div>My Comment: {{ movie.comment }}</div> -->
   <!-- [routerLink="movie.id"] -->
-  <button (click)="sendMovie(movie)" routerLink={{movie.id}}>View details</button>
+  <button (click)="viewDetails(movie)" routerLink="{{ movie.id }}">
+    View details
+  </button>
 </div>
-
-<!-- <ul>
-  <li *ngFor="let movie of favoriteMovies$ | async">
-    {{ movie.movieInfo | json }}
-  </li>
-</ul> -->

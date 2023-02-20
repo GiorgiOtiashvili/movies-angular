@@ -1,5 +1,3 @@
-<h1>first-task works!</h1>
-
 <div class="container-1">
   <form action="">
     <label for="">Movie Title:</label>
@@ -10,68 +8,45 @@
       placeholder="Movie title"
     />
   </form>
-  <button id="btn-1" (click)="getMovieInfo()">Send</button>
-  <!--
-  <div class="content" *ngIf="movie$ | async as movie">
-    <p id="years"> {{ movie.Title }} was released {{ 2023 - movie.Year }} years ago</p> <br>
-    <p id="actor-names">Actors: {{ movie.Actors }}</p> <br>
-    <p id="currency"></p> <br>
-    <div id="flag-wrapper"></div>
-  </div> -->
+  <button id="btn-1" (click)="getMovieInfo()">Search</button>
 
   <div class="movie-container" *ngIf="wholeData$ | async as data">
-    <div class="content" >
+    <div class="content">
       <div class="poster">
         <img [src]="data.movieInfo.poster" alt="" />
       </div>
 
       <div class="text">
-        <h2> {{data.movieInfo.title}} </h2>
+        <h2>{{ data.movieInfo.title }}</h2>
         <p id="years">
-          {{ data.movieInfo.title }} was released {{ data.movieInfo.yearsAgo }} years ago
+          {{ data.movieInfo.title }} was released
+          {{ data.movieInfo.yearsAgo }} years ago
         </p>
         <br />
         <p id="actor-names">Actors: {{ data.movieInfo.actors }}</p>
         <br />
         <!-- Countries -->
-        <div class="countries-wrapper" *ngFor="let country of data.countriesInfo">
-          <p id="currency">{{  getCurrenciesPropertyName(country) }}</p>
+        <div
+          class="countries-wrapper"
+          *ngFor="let country of data.countriesInfo"
+        >
+          <p id="currency">
+            Currency: {{ getCurrenciesPropertyName(country) }}
+          </p>
           <br />
           <div id="flag-wrapper">
+            <!-- <span>Flag:</span> -->
             <img [src]="country.flags.png" alt="" />
           </div>
         </div>
+
+        <!-- <button routerLink="/addMovie" (click)="addToList(data)">
+          Add to List
+        </button> -->
       </div>
     </div>
-    <button routerLink="/addMovie" (click)="addToList(data)">Add to List</button>
+    <button class="add-to-list" routerLink="/addMovie" (click)="addToList(data)">
+      Add to List
+    </button>
   </div>
-
 </div>
-
-<!-- ძველი ვერსია 16 Feb -->
-<!-- <div class="movie-container" *ngIf="movie$ | async as movie">
-  <div class="content" >
-    <div class="poster">
-      <img [src]="movie.poster" alt="" />
-    </div>
-
-    <div class="text">
-      <h2> {{movie.title}} </h2>
-      <p id="years">
-        {{ movie.title }} was released {{ movie.yearsAgo }} years ago
-      </p>
-      <br />
-      <p id="actor-names">Actors: {{ movie.actors }}</p>
-      <br />
-
-      <div class="countries-wrapper" *ngFor="let country of countries$ | async">
-        <p id="currency">{{  getCurrenciesPropertyName(country) }}</p>
-        <br />
-        <div id="flag-wrapper">
-          <img [src]="country.flags.png" alt="" />
-        </div>
-      </div>
-    </div>
-  </div>
-  <button routerLink="/addMovie">Add to List</button>
-</div> -->

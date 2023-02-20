@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { FavoriteMovie } from 'src/app/interfaces/movies.model';
 import { MovieDataService } from 'src/app/services/movie-data.service';
 import { MoviesApiService } from 'src/app/services/movies-api.service';
@@ -24,8 +24,9 @@ export class FavoriteMoviesComponent {
     // this.favoriteMovies$?.subscribe(console.log);
   }
 
-  sendMovie(movie: FavoriteMovie) {
+  viewDetails(movie: FavoriteMovie) {
     this.movieDataService.selectedMovie = movie;
+    this.movieDataService.selectedMovie$ = of(movie);
     // console.log(movie);
   }
 }

@@ -55,7 +55,7 @@ export interface WholeData {
 
 export interface FavoriteMovie extends WholeData {
   comment: string;
-  rating?: number;
+  myRating?: number;
   id: number;
 }
 
