@@ -1,15 +1,13 @@
-<div class="movie-info" *ngFor="let movie of favoriteMovies$ | async">
-  <!-- <div> -->
-    <img [src]="movie.movieInfo.poster" alt="" style="width: 75px;" />
-  <!-- </div> -->
-  <!-- <div>ID: {{ movie.id }}</div> -->
-  <div class="movie-title">{{ movie.movieInfo.title }}</div>
-  <div>Genre: {{ movie.movieInfo.genre }}</div>
-  <!-- <div>Awards: {{ movie.movieInfo.awards }}</div> -->
-  <!-- <div>Released: {{ movie.movieInfo.released }}</div> -->
-  <!-- <div>My Comment: {{ movie.comment }}</div> -->
-  <!-- [routerLink="movie.id"] -->
-  <button (click)="viewDetails(movie)" routerLink="{{ movie.id }}">
-    View details
-  </button>
+<div class="container">
+  <div class="movie-info" *ngFor="let movie of favoriteMovies$ | async">
+    <div class="movie-content">
+      <img [src]="movie.movieInfo.poster" alt="" />
+      <div class="movie-title">{{ movie.movieInfo.title }}</div>
+      <div>Genre: {{ movie.movieInfo.genre }}</div>
+    </div>
+
+    <button (click)="viewDetails(movie)" routerLink="{{ movie.id }}">
+      View details
+    </button>
+  </div>
 </div>

@@ -12,41 +12,49 @@
 
   <div class="movie-container" *ngIf="wholeData$ | async as data">
     <div class="content">
-      <div class="poster">
-        <img [src]="data.movieInfo.poster" alt="" />
-      </div>
-
-      <div class="text">
-        <h2>{{ data.movieInfo.title }}</h2>
-        <p id="years">
-          {{ data.movieInfo.title }} was released
-          {{ data.movieInfo.yearsAgo }} years ago
-        </p>
-        <br />
-        <p id="actor-names">Actors: {{ data.movieInfo.actors }}</p>
-        <br />
-        <!-- Countries -->
-        <div
-          class="countries-wrapper"
-          *ngFor="let country of data.countriesInfo"
-        >
-          <p id="currency">
-            Currency: {{ getCurrenciesPropertyName(country) }}
-          </p>
-          <br />
-          <div id="flag-wrapper">
-            <!-- <span>Flag:</span> -->
-            <img [src]="country.flags.png" alt="" />
-          </div>
+      <div class="movie-content">
+        <div class="poster">
+          <img [src]="data.movieInfo.poster" alt="" />
         </div>
 
-        <!-- <button routerLink="/addMovie" (click)="addToList(data)">
-          Add to List
-        </button> -->
+        <div class="text">
+          <h2>{{ data.movieInfo.title }}</h2>
+          <p id="years" class="movie-text">
+            {{ data.movieInfo.title }} was released
+            {{ data.movieInfo.yearsAgo }} years ago
+          </p>
+
+          <p id="actor-names" class="movie-text">
+            <span>Actors:</span> {{ data.movieInfo.actors }}
+          </p>
+          <!-- Countries -->
+          <div
+            class="countries-wrapper"
+            *ngFor="let country of data.countriesInfo"
+          >
+            <p class="currency">
+              <span>Currency:</span> {{ getCurrenciesPropertyName(country) }}
+            </p>
+            <br />
+            <div id="flag-wrapper">
+              <!-- <span>Flag:</span> -->
+              <img [src]="country.flags.png" alt="" />
+            </div>
+          </div>
+
+          <!-- <button routerLink="/addMovie" (click)="addToList(data)">
+            Add to List
+          </button> -->
+        </div>
       </div>
+
+      <button
+        class="add-to-list"
+        routerLink="/addMovie"
+        (click)="addToList(data)"
+      >
+        Add to List
+      </button>
     </div>
-    <button class="add-to-list" routerLink="/addMovie" (click)="addToList(data)">
-      Add to List
-    </button>
   </div>
 </div>

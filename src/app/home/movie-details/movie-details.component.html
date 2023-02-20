@@ -1,4 +1,3 @@
-<!-- <div class="container" *ngIf="selectedMovie$ |async as selectedMovie"></div> -->
 <div class="container" *ngIf="selectedMovie">
   <div class="content">
     <div class="movie-container">
@@ -9,23 +8,21 @@
 
         <div class="text">
           <h2>{{ selectedMovie.movieInfo.title }}</h2>
-          <p id="years">
+          <p id="years" class="movie-text">
             <span>Released:</span>
             {{ selectedMovie.movieInfo.title }} was released
             {{ selectedMovie.movieInfo.yearsAgo }} years ago
           </p>
-          <!-- <br /> -->
-          <p id="actor-names">
+          <p id="actor-names" class="movie-text">
             <span>Actors:</span> {{ selectedMovie.movieInfo.actors }}
           </p>
-          <!-- <br /> -->
-          <p id="actor-names">
+          <p class="movie-text">
             <span>Genre:</span> {{ selectedMovie.movieInfo.genre }}
           </p>
-          <p id="actor-names">
+          <p class="movie-text">
             <span>Awards:</span> {{ selectedMovie.movieInfo.awards }}
           </p>
-          <p id="actor-names">
+          <p class="movie-text">
             <span>Runtime:</span> {{ selectedMovie.movieInfo.runtime }}
           </p>
 
@@ -35,7 +32,7 @@
             *ngFor="let country of selectedMovie.countriesInfo"
           >
             <!-- The currency of {{country}} is  -->
-            <p id="currency">
+            <p class="currency">
               <span>Currency:</span> {{ getCurrenciesPropertyName(country) }}
             </p>
             <br />
@@ -52,74 +49,51 @@
       <div class="comment">
         <div class="comment-content">
           <span>My Comment:</span>
-          <p *ngIf="!isEditing">{{ selectedMovie.comment }}</p>
-          <div>
-            <!-- [(ngModel)]="selectedMovie.comment" -->
-            <input
-              type="text"
-              *ngIf="isEditing"
-              [value]="selectedMovie.comment"
-              #input
-            />
+          <div class="comment-text" *ngIf="!isEditing">
+            {{ selectedMovie.comment }}
           </div>
-        </div>
-
-        <div class="buttons-container2">
-          <button class="edit" (click)="enterEdit()" *ngIf="!isEditing">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button
-            class="checkbox"
+          <!-- <div> -->
+          <!-- [(ngModel)]="selectedMovie.comment" -->
+          <textarea
+            type="text"
             *ngIf="isEditing"
-            (click)="edit(selectedMovie)"
-          >
-            <i class="fa-solid fa-square-check"></i>
-          </button>
-          <!-- *ngIf="selectedMovie.id" (click)="deleteMovieComment(selectedMovie.id)" [disabled]="isEditing" -->
-          <!-- <button
-          class="delete"
-          *ngIf="selectedMovie.id"
-          (click)="deleteMovieComment(selectedMovie.id)"
-          [disabled]="isEditing"
-        >
-          <i class="fa-solid fa-trash"></i>
-        </button> -->
-          <button class="cancel-edit" *ngIf="isEditing" (click)="cancelEdit()">
-            <i class="fa-solid fa-rectangle-xmark"></i>
-          </button>
+            [value]="selectedMovie.comment"
+            #input
+          ></textarea>
+          <!-- </div> -->
         </div>
       </div>
 
       <div class="my-rating">
-        <p><span>MyRating:</span> {{ selectedMovie.myRating }}</p>
+        <p><span>My Rating:</span> {{ selectedMovie.myRating }}</p>
       </div>
     </div>
 
     <div class="buttons">
-      <button
-        class="delete-btn"
-        *ngIf="selectedMovie.id"
-        (click)="deleteMovie(selectedMovie.id)"
-      >
-        Delete Movie
+      <button class="edit-btn" (click)="enterEdit()" *ngIf="!isEditing">
+        Edit Comment
       </button>
-      <!-- <button></button> -->
-    </div>
 
-    <!-- <div class="buttons-container1">
-    <button class="edit">
-      <i class="fa-solid fa-pen-to-square"></i>
-    </button>
-    <button
-      class="delete"
-      *ngIf="selectedMovie.id"
-      (click)="deleteMovie(selectedMovie.id)"
-    >
-      <i class="fa-solid fa-trash"></i>
-    </button>
-    <button class="cancel">
-      <i class="fa-solid fa-rectangle-xmark"></i>
-    </button>
-  </div> -->
+      <button
+        class="checkbox-btn"
+        *ngIf="isEditing"
+        (click)="edit(selectedMovie)"
+      >
+        Update Comment
+      </button>
+      <button class="cancel-btn" *ngIf="isEditing" (click)="cancelEdit()">
+        Cancel
+      </button>
+
+      <span *ngIf="!isEditing">
+        <button
+          class="delete-btn"
+          *ngIf="selectedMovie.id"
+          (click)="deleteMovie(selectedMovie.id)"
+        >
+          Delete Movie
+        </button>
+      </span>
+    </div>
   </div>
 </div>

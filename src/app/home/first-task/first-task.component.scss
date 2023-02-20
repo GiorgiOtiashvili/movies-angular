@@ -1,9 +1,7 @@
 .container-1 {
-  // width: 70%;
-  height: 400px;
   font-size: 20px;
   margin-top: 50px;
-  margin-left: 30px;
+  margin-bottom: 50px;
 
   form {
     padding: 20px;
@@ -37,73 +35,90 @@
     cursor: pointer;
 
     &:hover {
-    background-color: rgb(85, 246, 249);
+      background-color: rgb(85, 246, 249);
     }
   }
 
   .movie-container {
-    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
-
-    width: 80%;
-    margin-inline: auto;
-    padding: 20px;
-    background-color: rgb(34, 33, 33);
-    color: white;
-    font-size: 28px;
-    color: crimson;
-    font-weight: 900;
+    align-items: center;
 
     .content {
+      width: 80%;
       display: flex;
-      gap: 200px;
-      // justify-content: space-evenly;
-      // justify-content: space-between;
+      flex-direction: column;
 
-      .poster {
-        // width: 10px;
-        // height: 80px;
+      .movie-content {
+        display: flex;
+        gap: 80px;
+        background-color: rgb(34, 33, 33);
+        padding: 20px;
 
-        img {
-          object-fit: cover;
-          height: 100%;
-          // width: 200px;
+        .poster {
+          height: 570px;
+
+          img {
+            object-fit: cover;
+            height: 100%;
+          }
+        }
+
+        .text {
+          font-size: 20px;
+          font-weight: 900;
+
+          h2 {
+            color: crimson;
+            text-align: center;
+            font-size: 36px;
+            padding-bottom: 30px;
+          }
+
+          .movie-text {
+            padding-bottom: 20px;
+            color: crimson;
+          }
+          p {
+            color: crimson;
+
+            span {
+              color: white;
+            }
+          }
+
+          .countries-wrapper {
+            .currency {
+              span {
+                color: white;
+              }
+            }
+
+            #flag-wrapper img {
+              height: 100px;
+            }
+          }
         }
       }
 
-      .text {
-        h2 {
-          color: greenyellow;
-          text-align: center;
-          padding-bottom: 60px;
-        }
+      button.add-to-list {
+        width: 160px;
+        height: 60px;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: 700;
+        background-color: rgb(20, 167, 220);
+        color: white;
+        cursor: pointer;
 
-        #flag-wrapper img {
-          // width: 100px;
-          height: 100px;
+        align-self: flex-end;
+        margin-top: 20px;
+
+        &:hover {
+          background-color: rgb(115, 214, 251);
         }
       }
-    }
-
-    button.add-to-list {
-      width: 160px;
-      height: 60px;
-      border: none;
-      border-radius: 5px;
-      font-size: 20px;
-      font-weight: 700;
-      background-color: rgb(20, 167, 220);
-      color: white;
-      cursor: pointer;
-
-      align-self: flex-end;
-      margin-top: 50px;
-
-      &:hover {
-      background-color: rgb(115, 214, 251);
-      }
-
     }
   }
 }

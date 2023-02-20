@@ -1,49 +1,57 @@
-.movie-info {
+.container {
+  margin-top: 40px;
   display: flex;
-  align-items: center;
-  // justify-content: center;
-  gap: 10px;
-  font-size: 18px;
-  height: 60px;
-  margin-left: 30px;
-  margin-top: 60px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
 
-  // img {
-  //   height: 100px;
-  // }
-
-  div {
-    height: 100%;
-    border: 1px solid;
+  .movie-info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+
+    background-color: lightblue;
+    width: 90%;
+    margin-top: 10px;
     padding: 0 20px;
-    font-weight: 700;
 
-    // &:not(:last-child()) {
-    //   border-right: 1px solid;
-    // }
-  }
+    .movie-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
 
-  div.movie-title {
-    color: crimson;
-  }
+      img {
+        width: 100px;
+      }
 
-  button {
-    height: 50px;
-    width: 135px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgb(0, 255, 166);
-    font-weight: 700;
-    font-size: 16px;
-    color: black;
-    transition: .5s;
-    cursor: pointer;
+      div {
+        font-weight: 700;
+      }
 
-    &:hover {
-      background-color: rgb(126, 248, 205);
+      div.movie-title {
+        color: crimson;
+      }
+    }
+
+    button {
+      height: 50px;
+      width: 135px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: crimson;
+      font-weight: 700;
+      font-size: 16px;
+      // color: black;
+      color: white;
+      transition: 0.5s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(247, 130, 153);
+        color: black;
+      }
     }
   }
 }
